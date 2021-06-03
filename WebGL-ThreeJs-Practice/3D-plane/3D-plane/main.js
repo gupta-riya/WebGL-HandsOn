@@ -1,6 +1,8 @@
 import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js'
+import {OrbitControls} from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js'
 // refer three.js docs
 
+console.log(OrbitControls)
 // we are using dat for gui
 const gui = new dat.GUI();
 // console.log(gui);
@@ -62,6 +64,8 @@ renderer.setPixelRatio(window.devicePixelRatio);
 
 document.body.appendChild(renderer.domElement);
 
+// orbital control will control movements of plane based on mouse movements
+new OrbitControls(camera,renderer.domElement);
 camera.position.z = 5;
 
 // width, height, widthsegment, heightsegment
@@ -118,6 +122,14 @@ const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(0, 0, 1);
 
 scene.add(light);
+
+
+// we should also create a backlight for other side
+const backLight = new THREE.DirectionalLight(0xffffff, 1);
+
+backLight.position.set(0, 0, -1);
+
+scene.add(backLight);
 
 
 // add animation
