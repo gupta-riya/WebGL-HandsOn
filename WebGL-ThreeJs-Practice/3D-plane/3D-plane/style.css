@@ -1,3 +1,19 @@
 body{
   margin:0px;
 }
+
+.absolute{
+  position: absolute;
+}
+
+.text-white{
+  color: white;
+  text-align: center;
+  font-size: 2rem ;
+}
+
+.main-cont{
+
+  top: 30%;
+  left: 35%;
+  }
