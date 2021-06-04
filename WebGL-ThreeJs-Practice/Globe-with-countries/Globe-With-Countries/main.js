@@ -84,6 +84,22 @@ earth.add(earthClouds)
 // create variable to store array of lights
 let lights = [];
 
+// create skyBox to add more attractiveness
+function createSkyBox(scene)
+{
+  const loader = new THREE.CubeTextureLoader();
+  const texture = loader.load([
+    './img/space_right.png',
+    './img/space_left.png',
+    './img/space_top.png',
+    './img/space_bot.png',
+    './img/space_front.png',
+    './img/space_back.png'    
+
+  ])
+  scene.background = texture;
+}
+
 // createLights is a function which creates the lights and adds them to the scene.
 function createLights(scene){
   lights[0] = new THREE.PointLight("#004d99",.5,0);
@@ -105,10 +121,11 @@ function createLights(scene){
   function addSceneObjects(scene)
   {
     createLights(scene);
+    createSkyBox(scene);
   }
 
 
-  addSceneObjects(scene);
+addSceneObjects(scene);
   
 camera.position.z = 15;
 
@@ -119,9 +136,10 @@ window.addEventListener("resize",onWindowResize,false);
 
 
 function onWindowResize(){
-  requestAnimationFrame(animate);
-  render();
-  controls.update();
+ 
+  camera.aspect = window.innerWidth/window.innerHeight
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
 
 }
 
