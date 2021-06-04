@@ -48,7 +48,7 @@ let earthMaterial = new THREE.MeshPhongMaterial({
   map: earthMap,
   bumpMap: earthBumpMap,
   bumpScale : 0.10,
-  specularMap: earthSpecMap,
+  specularMap: earthSpaceMap,
   specular: new THREE.Color('grey')
 });
 
@@ -58,8 +58,28 @@ const earth = new THREE.Mesh(
 ) 
 
 scene.add(earth)
-camera.position.z = 5;
 
+// add clouds to the earth object
+let cloudsGeometry = new THREE.SphereGeometry(5,50,50);
+
+// add cloud textures
+let cloudsTexture = new THREE.TextureLoader().load('./img/earthhiresclouds4K.jpg')
+
+// add cloud material
+let cloudsMaterial = new THREE.MeshLambertMaterial({
+  color: 0xffffff,
+  map: cloudsTexture,
+  transparent: true,
+  opacity: 0.3
+});
+
+let earthClouds = new THREE.Mesh(cloudsGeometry,cloudsMaterial);
+
+// scale above the earth sphere mesh
+earthClouds.scale.set(1.015,1.015,1.015);
+
+//make child of the earth
+earth.add(earthClouds)
 
 // create variable to store array of lights
 let lights = [];
@@ -89,6 +109,10 @@ function createLights(scene){
 
 
   addSceneObjects(scene);
+  
+camera.position.z = 15;
+
+
 //----------- add event listeners ----------
 
 window.addEventListener("resize",onWindowResize,false);
