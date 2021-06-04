@@ -180,7 +180,8 @@ function onWindowClick(event){
   raycaster.setFromCamera(mouse, camera);
 
   let intersects = raycaster.intersectObjects(earthClouds.children);
-  
+  console.log(mouse.x + " " + mouse.y);
+
   for(let i = 0 ; i < intersects.length ; i++){
     document.querySelector("#region").innerText = "Region: " + intersects[0].object.userData.region;
     document.querySelector("#region").style.color = intersects[0].object.userData.color;
@@ -190,7 +191,7 @@ function onWindowClick(event){
     document.querySelector("#area-sq-mi").innerText = "Area(mile^2): " + intersects[0].object.userData.area_sq_mi;
     document.querySelector("#gdp-per-capita").innerText = "GDP per-capita: " + intersects[0].object.userData.gdp_per_capita;
     document.querySelector("#climate").innerText = "Climate: " + intersects[0].object.userData.climate;
-
+    
 
   }
 
