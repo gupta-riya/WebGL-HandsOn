@@ -4,20 +4,95 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
     <title>Globe</title>
-    <style>
-      *{
-        overflow: hidden;
-      }
-
-      body{
-       margin:0px;
-      }
-
-    </style>
+    
   </head>
   <body>
-    <div id="app"></div>
+    	<div id="title-box">
+
+        <div id="title">
+          Our Beautiful Earth
+        </div>
+
+        <div id="subtitle">
+          By Riya Gupta
+        </div>
+
+		</div>
+
+		<div id="instruction-box">
+
+			<div id="instruction-title">
+				INSTRUCTIONS
+			</div>
+
+			<div id="instruction-body">
+
+				<h1>
+          Click and drag your mouse around to see the full globe.
+					<br>
+					Click on the points of interest to display the information.
+					<br>
+					Zoom in and out using mouse.
+					<br>
+				</h1>
+				
+			</div>
+
+		</div>
+
+		<div id="display-box">
+
+			<div id="display-box-title">
+				Choose an option below!!
+			</div>
+
+			<button id="country">
+				Click here for countries!
+			</button>
+
+			<button id="instructions">
+				Click here for instructions!
+			</button>
+
+		</div>
+
+		<div id="info-box">
+
+			<div id="info-title">
+				Information
+			</div>
+
+			<div id="region">
+				Region: 
+			</div>
+
+			<div id="country-info">
+				Country: 
+			</div>
+
+			<div id="language">
+				Language: 
+			</div>
+
+			<div id="population">
+			 Population: 	
+			</div>
+
+			<div id="area-sq-mi">
+				Area(mile^2): 
+			</div>
+
+			<div id="gdp-per-capita">
+				 GDP Per-Capita: 
+			</div>
+
+			<div id="climate">
+				 Climate: 
+			</div>
+
+		</div>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
      <!-- gsap is for animation -->
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>

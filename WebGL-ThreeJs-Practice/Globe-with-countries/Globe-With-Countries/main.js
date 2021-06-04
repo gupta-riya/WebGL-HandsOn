@@ -1,6 +1,7 @@
 import * as THREE from "https://unpkg.com/three@0.126.1/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
 
+
 // data loading
 let data = [];
 let xhttp = new XMLHttpRequest();
@@ -13,7 +14,7 @@ xhttp.onreadystatechange = function () {
     }
   }
 };
-xhttp.open("GET", "./data/location.json", true);
+xhttp.open("GET", "./data/location.json", false);
 xhttp.send();
 console.log(data);
 
@@ -33,6 +34,14 @@ renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+
+// create raycaster for mouse interaction
+const raycaster = new THREE.Raycaster();
+
+// create vector2 for mouse and mobile x,y coordinates
+const mouse = new THREE.Vector2()
+const touch = new THREE.Vector2()
+
 
 // creating sphere -> globe
 // earth map
@@ -137,11 +146,29 @@ controls.saveState();
 //----------- add event listeners ----------
 
 // window.addEventListener("resize", onWindowResize, false);
+window.addEventListener("click", onWindowClick,false);
+// window.addEventListener("touchstart", onTouch,false);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function onWindowClick(event){
+  
+  event.preventDefault();
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  let intersects = raycaster.intersectObjects(earthClouds.children);
+  console.log(intersects.length)
+  for(let i = 0 ; i < intersects.length ; i++){
+    console.log(intersects[0])
+  }
+
+
 }
 
 function animate() {
