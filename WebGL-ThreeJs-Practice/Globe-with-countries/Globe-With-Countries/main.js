@@ -129,6 +129,13 @@ addSceneObjects(scene);
   
 camera.position.z = 15;
 
+// disable control function so that user dont zoom in or zoom out too much
+controls.minDistance = 12;
+controls.maxDistance = 30;
+controls.enablePen = false;
+controls.update();
+controls.saveState();
+
 
 //----------- add event listeners ----------
 
@@ -156,6 +163,9 @@ function render(){
 
   renderer.render(scene,camera);
 }
+
+
+
 
 animate()
 
