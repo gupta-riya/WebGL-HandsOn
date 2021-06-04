@@ -138,16 +138,33 @@ camera.position.z = 20;
 
 // disable control function so that user dont zoom in or zoom out too much
 controls.minDistance = 12;
-controls.maxDistance = 30;
+controls.maxDistance = 20;
 controls.enablePen = false;
 controls.update();
 controls.saveState();
 
 //----------- add event listeners ----------
 
-// window.addEventListener("resize", onWindowResize, false);
+window.addEventListener("resize", onWindowResize, false);
 window.addEventListener("click", onWindowClick,false);
 // window.addEventListener("touchstart", onTouch,false);
+
+let hidden = false;
+function hideInstructions(){
+
+  hidden = !hidden;
+  if(hidden){
+    document.querySelector("#instruction-box").style.display = "none";
+
+  }else{
+    document.querySelector("#instruction-box").style.display = "flex";
+  }
+
+}
+
+let instructionBtn = document.getElementById("instructions");
+instructionBtn.addEventListener("click",hideInstructions,false);
+
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -163,13 +180,23 @@ function onWindowClick(event){
   raycaster.setFromCamera(mouse, camera);
 
   let intersects = raycaster.intersectObjects(earthClouds.children);
-  console.log(intersects.length)
+  
   for(let i = 0 ; i < intersects.length ; i++){
-    console.log(intersects[0])
+    document.querySelector("#region").innerText = "Region: " + intersects[0].object.userData.region;
+    document.querySelector("#region").style.color = intersects[0].object.userData.color;
+    document.querySelector("#country-info").innerText = "Country: " + intersects[0].object.userData.country;
+    document.querySelector("#language").innerText = "Language: " + intersects[0].object.userData.language;
+    document.querySelector("#population").innerText = "Population: " + intersects[0].object.userData.population;
+    document.querySelector("#area-sq-mi").innerText = "Area(mile^2): " + intersects[0].object.userData.area_sq_mi;
+    document.querySelector("#gdp-per-capita").innerText = "GDP per-capita: " + intersects[0].object.userData.gdp_per_capita;
+    document.querySelector("#climate").innerText = "Climate: " + intersects[0].object.userData.climate;
+
+
   }
 
-
 }
+
+
 
 function animate() {
   requestAnimationFrame(animate);
@@ -196,7 +223,7 @@ function removeChildren(){
 // setting up coordinates
 function addCountryCode(earth,country,language,latitude,longitude,color,region,population,area_sq_mi,gdp_per_capita,climate)
 {
-  let pointOfInterest = new THREE.SphereGeometry(.1, 32,32);
+  let pointOfInterest = new THREE.ConeGeometry(0.2, 1, 20, 10,true);
   let lat = latitude * (Math.PI / 180);
   let lon = -longitude * (Math.PI / 180);
   const radius = 10;
@@ -231,10 +258,17 @@ function addCountryCode(earth,country,language,latitude,longitude,color,region,p
 
 }
 
+let countryInfo = document.getElementById("country");
+countryInfo.addEventListener("click",changeToCountry);
+
 function changeToCountry() {
   //
 
-    removeChildren();
+  document.querySelector("#instruction-box").style.display = 'none';
+  document.querySelector("#title-box").style.display = "none";
+  document.querySelector("#info-box").style.display = "flex";
+  
+  removeChildren();
   // Get the data from the JSON file
   for (let i = 0; i < data.length; i++) {
     if (data[i].Region == "ASIA (EX. NEAR EAST)") {
@@ -398,4 +432,3 @@ function changeToCountry() {
 
 
 animate();
-changeToCountry();
