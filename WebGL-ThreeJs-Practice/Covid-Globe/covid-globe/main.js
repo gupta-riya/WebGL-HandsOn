@@ -1,23 +1,7 @@
 import * as THREE from "https://unpkg.com/three@0.126.1/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
 
-
-// data loading
-// let data = [];
-// let xhttp = new XMLHttpRequest();
-// xhttp.onreadystatechange = function () {
-//   if (this.readyState == 4 && this.status == 200) {
-//     let response = JSON.parse(xhttp.responseText);
-//     let output = Object.values(response);
-//     for (let i = 0; i < output.length; i++) {
-//       data.push(output[i]);
-//     }
-//   }
-// };
-// xhttp.open("GET", "./data/location.json", false);
-// xhttp.send();
-// console.log(data);
-
+//////////////////////////////data loading
 
 const api_url = 'https://www.trackcorona.live/api/countries';
 
@@ -32,8 +16,6 @@ getapi(api_url);
 
 async function showData(data)
 {
-    for(let i = 0 ; i < data.length ; i++)
-    console.log(data[i].location);
     animate();
     changeToCountry(data);
     
@@ -169,24 +151,6 @@ window.addEventListener("resize", onWindowResize, false);
 window.addEventListener("click", onWindowClick,false);
 window.addEventListener("mousemove", onWindowHover ,false);
 
-// window.addEventListener("touchstart", onTouch,false);
-
-// let hidden = false;
-// function hideInstructions(){
-
-//   hidden = !hidden;
-//   if(hidden){
-//     document.querySelector("#instruction-box").style.display = "none";
-
-//   }else{
-//     document.querySelector("#instruction-box").style.display = "flex";
-//   }
-
-// }
-
-// let instructionBtn = document.getElementById("instructions");
-// instructionBtn.addEventListener("click",hideInstructions,false);
-
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -200,25 +164,41 @@ function onWindowClick(event){
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
+  let prevElem = document.body.querySelector(".country-info-container");
+    if(prevElem!=undefined)
+    {
+      console.log("possible");
+      document.body.querySelector(".country-info-container").remove();
+    }
   
 
   let intersects = raycaster.intersectObjects(earthClouds.children);
   
   for(let i = 0 ; i < intersects.length ; i++){
-    console.log(event.clientX);
+    
+   
     let divElem = document.createElement("div");
-    divElem.setAttribute("class","infocountry");
-    divElem.style.height = "20px";
-    divElem.style.width = "20px";
-    // divElem.style.backgroundImage = `url(https://www.countryflags.io/${intersects[0].object.userData.code}/shiny/64.png)`;
+    divElem.setAttribute("class","country-info-container");
     divElem.style.position = "absolute";
     divElem.style.top = event.clientY + "px" ;
     divElem.style.left = event.clientX + "px";
-    divElem.innerHTML = `<img src = "https://www.countryflags.io/${intersects[0].object.userData.code}/shiny/64.png" height = "20" width = "20">`
+    divElem.innerHTML = `<img class = "flag" src="https://corona.lmao.ninja/assets/img/flags/${intersects[0].object.userData.code}.png">
+                
+    <div class="covid-cases-container">
+        
+        <div class="card-title"><b>${intersects[0].object.userData.country}</b></div>
+        <div class="card-spacer"></div>
+        <hr />
+        <div class="card-spacer"></div>
+        <div class = "cases-info">Cases: ${intersects[0].object.userData.confirmed}</div> 
+        <div class = "cases-info">Deaths: ${intersects[0].object.userData.dead}</div> 
+        <div class = "cases-info">Recovered: ${intersects[0].object.userData.recovered}</div>
+        
+        
+    </div>`
     document.body.append(divElem);
-    console.log(divElem.style.left);
-
     
+
 
   }
 
@@ -240,17 +220,33 @@ function onWindowHover(event){
   let intersects = raycaster.intersectObjects(earthClouds.children);
   
   for(let i = 0 ; i < intersects.length ; i++){
+
+    if(document.body.querySelector(".tooltip")==undefined)
+    {
+      let divElem = document.createElement("div");
+      divElem.setAttribute("class","country-info-container");
+      divElem.classList.add("tooltip");
+      divElem.style.position = "absolute";
+      divElem.style.top = event.clientY + "px" ;
+      divElem.style.left = event.clientX + "px";
+      divElem.innerHTML = `<img class = "flag" src="https://corona.lmao.ninja/assets/img/flags/${intersects[0].object.userData.code}.png">
+                  
+      <div class="covid-cases-container">
+          
+          <div class="card-title"><b>${intersects[0].object.userData.country}</b></div>
+          <div class="card-spacer"></div>
+          <hr />
+          <div class="card-spacer"></div>
+          <div class = "cases-info">Cases: ${intersects[0].object.userData.confirmed}</div> 
+          <div class = "cases-info">Deaths: ${intersects[0].object.userData.dead}</div> 
+          <div class = "cases-info">Recovered: ${intersects[0].object.userData.recovered}</div>
+          
+          
+      </div>`
+
+      document.body.append(divElem);
+    }
     
-    let divElem = document.createElement("div");
-    divElem.setAttribute("class","tooltip");
-    divElem.style.height = "20px";
-    divElem.style.width = "20px";
-    divElem.style.position = "absolute";
-    divElem.style.top = event.clientY + "px" ;
-    divElem.style.left = event.clientX + "px";
-    divElem.innerHTML = `<img src = "https://www.countryflags.io/${intersects[0].object.userData.code}/shiny/64.png" height = "20" width = "20">`
-    document.body.append(divElem);
-    console.log(divElem.style.left);
   }
 }
 
@@ -312,17 +308,13 @@ function addCountryCode(earth,country,code,latitude,longitude,color,confirmed,de
   
   earthClouds.add(mesh);
 
-  mesh.addEventListener("mousemove",onWindowHover,true);
+  
 
 }
 
 
 function changeToCountry(data) {
-  //
-
-  // document.querySelector("#instruction-box").style.display = 'none';
-  // document.querySelector("#title-box").style.display = "none";
-  // document.querySelector("#info-box").style.display = "flex";
+  
   
   removeChildren();
   // Get the data from the JSON file

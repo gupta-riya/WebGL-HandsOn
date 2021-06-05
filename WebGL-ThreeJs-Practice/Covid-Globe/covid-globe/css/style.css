@@ -1,320 +1,62 @@
 
 *{
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 body{
   margin:0px;
-  color: white;
-
-}
-
-#title-box{
-  justify-content: center;
-  align-content:center;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 30vw;
-  height: 30vh;
-  top: 35vh;
-  left: 34vw;
-  border-style: inset;
-  border-width: 5px;
-  border-radius: 5%;
-  border-color: red;
-}    
-
-#title{
-
-  padding-top: 5%;
-  align-self: center;
-  text-align: center;
-  font-size: 30pt;
-  width: 100%;
-  height: 50%;
-  padding-bottom: 5%;
+  padding:0px;
 }
 
 
-#subtitle{
 
-  padding-top: 5%;
-  align-self: center;
-  text-align: center;
-  font-size: 30pt;
-  width: 100%;
-  height: 50%;
-  padding-bottom: 5%;
-}
+.country-info-container{
 
-#instruction-box{
-  justify-content: center;
-  align-content: center ;
-  display: none;
-  flex-direction: column;
-  border-style: inset ;
-  border-radius: 5%;
-  border-width: 5px;
-  border-color: red;
+  font-family: 'Space Mono', monospace;
   background-color: black;
-  position: absolute;
-  left: 5vh;
-  top: 5vh;
-  width: 25vw;
-  height: 25vh;
-  opacity: 0.85;
-
-
+  width: 170px;
+  border: 2px solid red;
+  border-radius: 10px;
+  z-index: 100;
+ 
 }
 
 
-#instruction-title{
-  align-self: center;
-  text-align: center;
-  font-size: 24pt;
+.flag{
+ 
+  height:150px;
   width: 100%;
-  height: 20%;
-  font-style: oblique ;
-  padding-bottom: 3%;
-  color: burlywood;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-#instruction-body{
-  width: 100%;
-  height: 60%;
-}
+.covid-cases-container{
 
-#instruction-body > h1{
-  padding: 0;
-  margin: 0;
-  padding-top: 5%;
-  align-self:center;
-  font-size: 10pt;
-  padding-bottom: 5%;
-  color: burlywood;
-}
-
-#display-box{
+  padding-top: 1px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: left;
+  transition: 0.5s;
+  color: white !important;
   
-  display: flex;
-  justify-items: center;
-  align-content: center;
-  flex-direction: column;
-  border-style: inset;
-  border-width: 5px;
-  border-radius: 5%;
-  border-color: red;
-  background-color: black;
-  opacity: 80%;
-  position :absolute;
-  left: 5vh;
-  bottom: 5vh;
-  width:20vw ;
-  height:30vh;
+  
 }
 
+.card-title{
 
-#display-box-title{
-  margin-top: 5%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
+  font-weight: bold;
   text-align: center;
-  width: 75%;
-  height: 15;
-  border: inset;
-  border-color: burlywood ;
-  border-radius: 5%;
-  margin-bottom: 1%;
-
 }
 
-#country{
-  color: black;
-  font-style:oblique ;
-  margin-top: 2%;
-  justify-items: center;
-  align-content: center;
-  text-align: center;
-  width: 75%;
-  height: 30%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-  margin-left:12%;
+.card-spacer{
+  height: 1px;
 }
 
-#instructions{
-  color: black;
-  font-style:oblique ;
-  margin-top: 3%;
-  justify-items: center;
-  align-content: center;
-  text-align: center;
-  width: 75%;
-  height: 30%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-left:12%;
+.cases-info{
+  font-size: large;
+  margin-bottom: 4px;
+  text-align: justify;
 }
 
-#info-box{
-  display: flex;
-  justify-items: center;
-  align-content: center;
-  flex-direction: column;
-  border-style: inset;
-  border-width: 5px ;
-  border-radius: 5%;
-  border-color: red;
-  background-color: black;
-  opacity: 80%;
-  position: absolute;
-  right: 5vh;
-  bottom: 25vh;
-  width: 15vw;
-  height: 65vh;
-  font-size: 9pt;
-  font-style: normal;
-  padding-bottom: 2% ;
-
-
-}
-
-#info-title{
-
-  font-size: 14pt;
-  margin-top: 5%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: center;
-  width: 75%;
-  height: 7%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 2%;
-
-}
-
-
-#country-info{
-
-  font-size: 11pt;
-  margin-top: 3%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 13%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-}
-
-#language{
-
-  font-size: 11pt;
-  margin-top: 4%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 13%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-
-}
-
-#region{
-
-  font-size: 11pt;
-  margin-top: 4%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 15%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-}
-
-
-#population{
-  font-size: 11pt;
-  margin-top: 4%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 13%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-}
-
-#area-sq-mi{
-  font-size: 11pt;
-  margin-top: 4%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 13%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-}
-
-#gdp-per-capita{
-  font-size: 11pt;
-  margin-top: 4%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 13%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-}
-
-#climate{
-  font-size: 11pt;
-  margin-top: 4%;
-  justify-items: center;
-  align-content: center;
-  align-self: center;
-  text-align: left;
-  text-indent: 3%;
-  width: 75%;
-  height: 13%;
-  border: inset;
-  border-color: burlywood;
-  border-radius: 5%;
-  margin-bottom: 1%;
-}
